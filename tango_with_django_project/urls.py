@@ -24,6 +24,6 @@ from rango import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('rango/', include('rango.urls')),
-    #23 makes any rango/ url be handled by rango
+    #26 makes any rango/ url be handled by rango
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
