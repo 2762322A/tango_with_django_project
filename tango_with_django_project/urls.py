@@ -26,4 +26,5 @@ urlpatterns = [
     path('rango/', include('rango.urls')),
     #26 makes any rango/ url be handled by rango
     path('admin/', admin.site.urls),
+    path('accounts/', include('registration.backends.simple.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
