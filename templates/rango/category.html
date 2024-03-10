@@ -14,11 +14,18 @@
     <div class ="container">
     {% if category %}
     <h1 class="jumbotron-heading">{{ category.name }}</h1>
-    
+
     {% if pages %}
     <ul>
         {% for page in pages %}
-        <li><a  href="{{ page.url }}">{{ page.title }}</a></li>
+        <li>
+            <a href="{% url 'rango:goto' %}?page_id={{ page.id }}">{{ page.title }}</a>
+                {% if page.views > 1 %}
+                    ({{ page.views }} views)
+                {% elif page.views == 1 %}
+                    ({{ page.views }} view)
+                {% endif %}
+            </li>
         {% endfor %}
     </ul>
     {% else %}
@@ -31,4 +38,37 @@
     {% else %}
     The specified category does not exist.
     {% endif %}
+
+    {% if user.is_authenticated %}
+<form class="form-inline" id="user-form" method="post" action="{% url 'rango:show_category' category.slug %}">
+	{% csrf_token %}
+	<div class="form-group">
+		<input class="form-control" type="text" size="50" value="{{ request.POST.query }}" name="query" id="query"/>
+	</div>
+
+	<button class="btn btn-primary" type="submit" name="submit">Search</button>
+
+</form>
+
+	{% if result_list %}
+		<h2>Results</h2>
+		<div class="list-group">	
+			{% for result in result_list %}
+				<div class="list-group-item">
+					<h3 class="list-group-item-heading">
+						<a href="{{ result.link }}">
+							{{ result.title|safe|escape }}
+						</a>
+					</h3>
+					<p class="list-group-item-text">
+						{{ result.summary|safe|escape }}
+					</p>
+				</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+</div>
+{% endif %}
+
+    
 {% endblock %}
