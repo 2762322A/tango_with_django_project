@@ -22,6 +22,11 @@
                         <h4 class="list-group-item-heading">
                             <a href="{% url 'rango:profile' list_user.user.username %}">
                             {{ list_user.user.username }}
+                            {% if list_user.picture %}
+                            <img src="{{ MEDIA_URL }}{{ list_user.picture }}" width="64" height="64" alt="{{ selected_user.username }}'s profile image" />
+                            {% else %}
+                            <img src="https://loremflickr.com/64/64/people/" width="64" height="64" alt="Placeholder image" />
+                            {% endif %}
                             </a>
                         </h4>
                     </div>
