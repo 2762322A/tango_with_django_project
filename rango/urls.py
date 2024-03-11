@@ -14,7 +14,9 @@ urlpatterns = [
     path('category/<slug:category_name_slug>/add_page/', views.add_page, name='add_page'),
     path('profile/<username>/', views.ProfileView.as_view(), name='profile'),
     path('profiles/', views.ListProfilesView.as_view(), name='list_profiles'),
-
+    path('like_category/', views.LikeCategoryView.as_view(), name='like_category'),
+    path('suggest/', views.CategorySuggestionView.as_view(), name='suggest'),
+    path('search_add_page/', views.SearchAddPageView.as_view(), name='search_add_page'),
 ]
 
 
